@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shop – CheekyBuild</title>
+  <link rel="stylesheet" href="style.css">
+  <!-- PayPal SDK: replace YOUR_PAYPAL_CLIENT_ID with your actual client ID -->
+  <script src="https://www.paypal.com/sdk/js?client-id=YOUR_PAYPAL_CLIENT_ID&currency=USD"></script>
+</head>
+<body>
+  <header>
+    <a href="index.html"><img src="assets/images/logo.png" alt="CheekyBuild logo" class="logo"></a>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="wise.html">Wise</a>
+      <a href="shop.html">Shop</a>
+      <a href="services.html">Services</a>
+      <a href="designs.html">Designs</a>
+    </nav>
+  </header>
+
+  <section class="shop">
+    <h1>Digital Products</h1>
+    <div class="product-card">
+      <img src="products/passive_income_playbook_mockup.png" alt="Passive Income Playbook cover">
+      <h2>Passive Income Playbook</h2>
+      <p>Learn step‑by‑step how to build automated income streams with affiliate marketing, drop‑servicing, print‑on‑demand and more.</p>
+      <p><strong>$19</strong></p>
+      <a href="https://gumroad.com/l/passive-income-playbook?wanted=true" class="button">Buy on Gumroad</a>
+      <div id="paypal-button-container-product" style="margin-top:20px;"></div>
+    </div>
+    <script>
+      // Render the PayPal button for the eBook
+      paypal.Buttons({
+        createOrder: function(data, actions) {
+          return actions.order.create({
+            purchase_units: [{ amount: { value: '19.00' } }]
+          });
+        },
+        onApprove: function(data, actions) {
+          return actions.order.capture().then(function(details) {
+            alert('Thank you, ' + details.payer.name.given_name + '! You will receive your download by email.');
+          });
+        }
+      }).render('#paypal-button-container-product');
+    </script>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 CheekyBuild. All rights reserved.</p>
+  </footer>
+</body>
+</html>

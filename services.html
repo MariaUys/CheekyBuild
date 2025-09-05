@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Services – CheekyBuild</title>
+  <link rel="stylesheet" href="style.css">
+  <!-- PayPal SDK: replace YOUR_PAYPAL_CLIENT_ID with your actual client ID -->
+  <script src="https://www.paypal.com/sdk/js?client-id=YOUR_PAYPAL_CLIENT_ID&currency=USD"></script>
+</head>
+<body>
+  <header>
+    <a href="index.html"><img src="assets/images/logo.png" alt="CheekyBuild logo" class="logo"></a>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="wise.html">Wise</a>
+      <a href="shop.html">Shop</a>
+      <a href="services.html">Services</a>
+      <a href="designs.html">Designs</a>
+    </nav>
+  </header>
+
+  <section class="services">
+    <h1>Logo Design Service</h1>
+    <p>Get a unique, professional logo for your brand. Provide us with your company name and style preferences, and our trusted designers will deliver a polished logo within 3‑5 business days.</p>
+    <p><strong>$50</strong></p>
+    <div id="paypal-button-container-service" style="margin-bottom:20px;"></div>
+    <script>
+      // PayPal button for services
+      paypal.Buttons({
+        createOrder: function(data, actions) {
+          return actions.order.create({
+            purchase_units: [{ amount: { value: '50.00' } }]
+          });
+        },
+        onApprove: function(data, actions) {
+          return actions.order.capture().then(function(details) {
+            alert('Thanks ' + details.payer.name.given_name + '! Please send your logo requirements via the form below.');
+          });
+        }
+      }).render('#paypal-button-container-service');
+    </script>
+    <h2>Send Us Your Brief</h2>
+    <!-- This form uses a placeholder action URL. Replace with your own form handler (e.g. Formspree) -->
+    <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST" class="service-form">
+      <input type="text" name="name" placeholder="Your Name" required>
+      <input type="email" name="email" placeholder="Your Email" required>
+      <textarea name="brief" placeholder="Describe your business and style preferences" rows="5" required></textarea>
+      <button type="submit" class="button">Send Brief</button>
+    </form>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 CheekyBuild. All rights reserved.</p>
+  </footer>
+</body>
+</html>

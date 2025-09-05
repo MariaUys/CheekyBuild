@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wise Affiliate – CheekyBuild</title>
+  <link rel="stylesheet" href="style.css">
+  <script>
+    // Simple IP-based currency detection to suggest the right link
+    document.addEventListener('DOMContentLoaded', function() {
+      const currencyLinks = {
+        'USD': 'https://wise.com/invite?currency=USD&partner_id=AFFILIATE_ID',
+        'EUR': 'https://wise.com/invite?currency=EUR&partner_id=AFFILIATE_ID',
+        'GBP': 'https://wise.com/invite?currency=GBP&partner_id=AFFILIATE_ID',
+        'ZAR': 'https://wise.com/invite?currency=ZAR&partner_id=AFFILIATE_ID'
+      };
+      fetch('https://ipapi.co/currency/')
+        .then(resp => resp.text())
+        .then(currency => {
+          currency = currency.trim();
+          if (currencyLinks[currency]) {
+            const autoLink = document.getElementById('autoLink');
+            autoLink.href = currencyLinks[currency];
+            autoLink.textContent = 'Continue in ' + currency;
+            document.getElementById('autoContainer').style.display = 'block';
+          }
+        })
+        .catch(err => {
+          console.warn('Currency detection failed', err);
+        });
+    });
+  </script>
+</head>
+<body>
+  <header>
+    <a href="index.html"><img src="assets/images/logo.png" alt="CheekyBuild logo" class="logo"></a>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="wise.html">Wise</a>
+      <a href="shop.html">Shop</a>
+      <a href="services.html">Services</a>
+      <a href="designs.html">Designs</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <h1>Open Your Multi‑Currency Account</h1>
+    <p>Choose your currency and join Wise today to save on international transfers.</p>
+  </section>
+
+  <section class="currency-buttons">
+    <a href="https://wise.com/invite?currency=USD&partner_id=AFFILIATE_ID" class="button">Sign Up in USD</a>
+    <a href="https://wise.com/invite?currency=EUR&partner_id=AFFILIATE_ID" class="button">Sign Up in EUR</a>
+    <a href="https://wise.com/invite?currency=GBP&partner_id=AFFILIATE_ID" class="button">Sign Up in GBP</a>
+    <a href="https://wise.com/invite?currency=ZAR&partner_id=AFFILIATE_ID" class="button">Sign Up in ZAR</a>
+  </section>
+
+  <section id="autoContainer" style="display:none; padding:40px 0; text-align:center;">
+    <h3>Recommended for You</h3>
+    <a id="autoLink" class="button" href="#">Continue</a>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 CheekyBuild. All rights reserved.</p>
+  </footer>
+</body>
+</html>
